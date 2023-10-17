@@ -16,9 +16,7 @@ int _printf(const char *format, ...)
 		{
 			format++; /* Move past '%'*/
 			if (*format == '\0')
-			{
 				break; /* End of string after '%'*/
-			}
 			if (*format == 'c')
 			{
 				int c = va_arg(args, int);
@@ -30,9 +28,11 @@ int _printf(const char *format, ...)
 				char *s = va_arg(args, char*);
 
 				while (*s)
+				{
 					putchar(*s);
 					count++;
 					s++;
+				}
 			} else if (*format == '%')
 			{
 				putchar('%');
