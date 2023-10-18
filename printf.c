@@ -1,48 +1,22 @@
 #include "main.h"
 /**
- * _printf - Printf function
+ * _printf - My own Printf function
  * @format: format.
- * Return: Printed chars.
+ * Return: The Printed characters.
  */
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int count = 0;
+	unsigned int p, count = 0;
 
-	va_start(args, format);
-	while (*format)
+	va_list argss;
+
+	va_start(argss, format);
+
+	for (p = 0; format[p] != '\0'; p++)
 	{
-		if (*format == '%')
+		if (format[p] != '%')
 		{
-			format++; /* Move past '%'*/
-			if (*format == '\0')
-				break; /* End of string after '%'*/
-			if (*format == 'c')
-			{
-				int c = va_arg(args, int);
-
-				putcharac(c);
-				count++;
-			} else if (*format == 's')
-			{
-				char *s = va_arg(args, char*);
-
-				while (*s)
-				{
-					putcharac(*s);
-					count++;
-					s++;
-				}
-			} else if (*format == '%')
-			{
-				putcharac('%');
-				count++;
-			}
-		} else
-		{
-			putcharac(*format);
-			count++;
-		} format++;
-	} va_end(args);
-	return (count);
+			putcharac(format[p]);
+		}
+	}
 }
