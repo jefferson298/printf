@@ -8,5 +8,6 @@
 
 int _printf(const char *format, ...);
 int putcharac (char c);
+int putters(char *c);
 
 #endif
