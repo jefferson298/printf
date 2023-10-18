@@ -6,35 +6,43 @@
  */
 int _printf(const char *format, ...)
 {
-	unsigned int p, s_counter, count = 0;
+	va_list args;
+	int count = 0; /* Move the declaration to the beginning of the block*/
 
-	va_list argss;
-
-	va_start(argss, format);
-
-	for (p = 0; format[p] != '\0'; p++)
+	va_start(args, format);
+	while (*format)
 	{
-		if (format[p] != '%')
+		if (*format == '%')
 		{
-			putcharac(format[p]);
-		}
-		else if (format[p] ==  '%' && format[p + 1] ==  'c')
+			format++;
+			if (*format == '\0')
+				break;
+			if (*format == 'c')
+			{
+				int c = va_arg(args, int);
+
+				putcharac(c);
+				count++;
+			} else if (*format == 's')
+			{
+				char *s = va_arg(args, char*);
+
+				while (*s)
+				{
+					putcharac(*s);
+					count++;
+					s++;
+				}
+			} else if (*format == '%')
+			{
+				putcharac('%');
+				count++;
+			}
+		} else
 		{
-		putcharac(va_arg(argss, int));
-		p++;
-		}
-		else if (format[p + 1] == 's')
-		{
-			s_counter = putters(va_arg(argss, char *));
-			p++;
-			count += (s_counter - 1);
-		}
-		else if (format[p + 1] == '%')
-		{
-			putcharac('%');
-		}
-		count += 1;
-	}
-	va_end(argss);
+			putcharac(*format);
+			count++;
+		} format++;
+	} va_end(args);
 	return (count);
 }
