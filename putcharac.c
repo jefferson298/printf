@@ -7,7 +7,7 @@
  *
  * Return: 1 (success)
  */
-int putcharac (char c)
+int putcharac(char c)
 {
 	return (write(1, &c, 1));
 }
