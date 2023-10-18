@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 				count++;
 			} else if (*format == 's')
 			{
-				char *s = putters(va_arg(args, char*));
+				char *s = va_arg(args, char*);
 
 				while (*s)
 				{
